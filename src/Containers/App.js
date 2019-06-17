@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import PlayerRegistration from '../Components/PlayerRegistration';
 import PlayerProfiles from '../Components/PlayerProfiles';
+import WindowToSmall from './WindowToSmall';
 import '../CSS/app.css';
 
 class app extends Component{
@@ -10,8 +11,9 @@ class app extends Component{
         this.state = {
             playerNumber : 1,
             PlayerRegistrationComplete : false,
+            windowIsSmall:false,
         };
-        console.log(window.orientation);
+        this.screensize = document.getElementsByClassName('screen')[0];
     }
 
     register = () => {
@@ -21,8 +23,20 @@ class app extends Component{
             this.setState({PlayerRegistrationComplete:true});
     }
 
+    screenWindowIsSmall = () => {
+        if(window.innerWidth<640)
+        {
+            this.setState({windowIsSmall:true});
+        }
+        else{
+            this.setState({windowIsSmall:false});
+        }
+    }
+
     render(){
         return(
+            <div onMouseMove={this.screenWindowIsSmall}>
+            {!this.state.windowIsSmall &&
             <div className='background'>
                 <h1 style={{fontSize:'45px',textAlign:'center',marginBottom:'15px',marginTop:'8px'}} className='header'>Tic-Tac-Toe</h1>
                 {this.state.PlayerRegistrationComplete === false &&
@@ -40,6 +54,11 @@ class app extends Component{
                         <h4 >Made by Siddharth Singha Roy</h4>
                     </a>
                 </div>
+            </div>
+            }
+            {this.state.windowIsSmall && 
+                <WindowToSmall />
+            }
             </div>
         );
     }
