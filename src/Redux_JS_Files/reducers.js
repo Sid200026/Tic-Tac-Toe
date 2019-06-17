@@ -18,6 +18,7 @@ export const Change_Id_Of_Robot = (state=InitialState, action={}) => {
 const initialPlayer1 = {
     name:'Player1',
     id:0,
+    wins:0,
 }
 
 export const Get_Player1_Details = (state=initialPlayer1, action={}) => {
@@ -32,6 +33,7 @@ export const Get_Player1_Details = (state=initialPlayer1, action={}) => {
 const initialPlayer2 = {
     name:'Player2',
     id:0,
+    wins:0,
 }
 
 export const Get_Player2_Details = (state=initialPlayer2, action={}) => {
