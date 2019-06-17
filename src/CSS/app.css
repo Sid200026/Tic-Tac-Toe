@@ -15,6 +15,7 @@ html{
 }
 .link{
     position: fixed;
+    margin-top:15px; 
     bottom:0px;
     background: rgba(82, 65, 65, 0.23);
     width:100%;
