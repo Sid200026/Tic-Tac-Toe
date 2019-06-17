@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import PlayerRegistration from '../Components/PlayerRegistration';
+import PlayerProfiles from '../Components/PlayerProfiles';
 import '../CSS/app.css';
 
 class app extends Component{
@@ -30,7 +31,9 @@ class app extends Component{
                     </div>
                 }
                 {this.state.PlayerRegistrationComplete === true &&
-                    <h1>Hello World</h1>
+                    <div>
+                        <PlayerProfiles />
+                    </div>
                 }
                 <div className='link'>
                     <a href="https://github.com/Sid200026" className='linkText'target='_blank' rel="noopener noreferrer">
