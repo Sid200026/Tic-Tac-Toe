@@ -1,8 +1,16 @@
 import React,{Component} from 'react';
+import { connect } from 'react-redux';
 import PlayerRegistration from '../Components/PlayerRegistration';
 import PlayerProfiles from '../Components/PlayerProfiles';
 import WindowToSmall from './WindowToSmall';
+import TicTacToeBox from '../Components/TicTacToeBox';
 import '../CSS/app.css';
+
+const mapStateToProps = (state) => {
+    return{
+        alreadySelected:state.Move.position,
+    }
+}
 
 class app extends Component{
 
@@ -12,8 +20,10 @@ class app extends Component{
             playerNumber : 1,
             PlayerRegistrationComplete : false,
             windowIsSmall:false,
+            gameArray:[0,0,0,0,0,0,0,0,0],
+            hasWon:false,
+            player:1,
         };
-        this.screensize = document.getElementsByClassName('screen')[0];
     }
 
     register = () => {
@@ -33,6 +43,62 @@ class app extends Component{
         }
     }
 
+    playerHasWon = () => {
+        let ans = false;
+        if(this.state.gameArray[0] !==0 && this.state.gameArray[0]===this.state.gameArray[1] && this.state.gameArray[0]===this.state.gameArray[2])
+        {
+            ans = true;
+        }
+        else if(this.state.gameArray[3] !==0 && this.state.gameArray[3]===this.state.gameArray[4] && this.state.gameArray[3]===this.state.gameArray[5])
+        {
+            ans = true;
+        }
+        else if(this.state.gameArray[6] !==0 && this.state.gameArray[6]===this.state.gameArray[7] && this.state.gameArray[6]===this.state.gameArray[8])
+        {
+            ans = true;
+        }
+        else if(this.state.gameArray[0] !==0 && this.state.gameArray[0]===this.state.gameArray[3] && this.state.gameArray[0]===this.state.gameArray[6])
+        {
+            ans = true;
+        }
+        else if(this.state.gameArray[1] !==0 && this.state.gameArray[1]===this.state.gameArray[4] && this.state.gameArray[1]===this.state.gameArray[7])
+        {
+            ans = true;
+        }
+        else if(this.state.gameArray[2] !==0 && this.state.gameArray[2]===this.state.gameArray[5] && this.state.gameArray[2]===this.state.gameArray[8])
+        {
+            ans = true;
+        }
+        else if(this.state.gameArray[0] !==0 && this.state.gameArray[0]===this.state.gameArray[4] && this.state.gameArray[0]===this.state.gameArray[8])
+        {
+            ans = true;
+        }
+        else if(this.state.gameArray[2] !==0 && this.state.gameArray[2]===this.state.gameArray[4] && this.state.gameArray[2]===this.state.gameArray[6])
+        {
+            ans = true;
+        }
+        return ans;
+    }
+
+    getPositions = () => {
+        for(let i=0;i<this.props.alreadySelected.length+1;i++){
+            if(this.state.gameArray[this.props.alreadySelected[i]]===0)
+            {
+                const tempArray = this.state.gameArray;
+                if(i%2===0)
+                {
+                    this.setState({player:2});
+                    tempArray[this.props.alreadySelected[i]]=1;
+                }
+                else{
+                    this.setState({player:1});
+                    tempArray[this.props.alreadySelected[i]]=2;
+                }
+                this.setState({gameArray:tempArray});
+            }
+        }
+    }
+
     render(){
         return(
             <div onMouseMove={this.screenWindowIsSmall}>
@@ -47,6 +113,23 @@ class app extends Component{
                 {this.state.PlayerRegistrationComplete === true &&
                     <div>
                         <PlayerProfiles />
+                        <div className='Tic-Tac-Toe'>
+                            <div>
+                                <TicTacToeBox number={0} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                                <TicTacToeBox number={3} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                                <TicTacToeBox number={6} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                            </div>
+                            <div>
+                                <TicTacToeBox number={1} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                                <TicTacToeBox number={4} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                                <TicTacToeBox number={7} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                            </div>
+                            <div>
+                                <TicTacToeBox number={2} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                                <TicTacToeBox number={5} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                                <TicTacToeBox number={8} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
+                            </div>
+                        </div>
                     </div>
                 }
                 <div className='link'>
@@ -64,4 +147,4 @@ class app extends Component{
     }
 }
 
-export default app;
+export default connect(mapStateToProps,{})(app);
