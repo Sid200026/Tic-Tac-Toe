@@ -27,6 +27,6 @@ html{
 .link h4{
     margin-top: 7px;
 }
-.linkText:hover{
+h4:hover{
     color:green;
 }

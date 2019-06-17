@@ -10,6 +10,7 @@ class app extends Component{
             playerNumber : 1,
             PlayerRegistrationComplete : false,
         };
+        console.log(window.orientation);
     }
 
     register = () => {
