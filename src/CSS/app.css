@@ -3,20 +3,23 @@ html{
     height: 100%;
     width: 100%;
 }
+body{
+    position: relative;
+    min-height: 100%;
+}
 .header:hover{
     color:red;
 }
-.register{
-    position: fixed;
-    left:34%;
-    right:34%;
-    border:2px solid black;    
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+form{
+    display: flex;
+    justify-content: center;
 }
 .link{
-    position: fixed;
-    margin-top:15px; 
-    bottom:0px;
+    position: absolute;
+    margin-top:8px; 
+    bottom:0;
+    left:0;
+    right:0;
     background: rgba(82, 65, 65, 0.23);
     width:100%;
     height:35px;
