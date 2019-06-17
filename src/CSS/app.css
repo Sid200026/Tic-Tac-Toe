@@ -35,3 +35,7 @@ form{
 h4:hover{
     color:green;
 }
+.Tic-Tac-Toe{
+    display:flex;
+    justify-content: center;
+}
