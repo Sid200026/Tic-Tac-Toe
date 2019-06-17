@@ -32,7 +32,10 @@ class Player_Registration extends Component{
 
     registerPlayer = () => {
         if(this.props.playerNumber === 1)
+        {
             this.props.RegisterPlayer1(this.Name,this.props.id);
+            this.Name = 'Player2';
+        }
         else   
             this.props.RegisterPlayer2(this.Name,this.props.id);
         this.props.register();
