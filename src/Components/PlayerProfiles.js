@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import '../CSS/PlayerProfiles.css';
+import PlayAgain from './PlayAgain';
 const mapStateToProps = (state) => {
     return{
         id1:state.Get_Player1_Details.id,
@@ -19,12 +20,15 @@ class PlayerProfiles extends Component{
                 <div className='Player1'>
                     <h1>{this.props.name1}</h1>
                     <img src={`https://robohash.org/${this.props.id1}`} alt='Player1'></img>
-                    <h1>Wins : {this.props.wins1}</h1>
+                    <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins1}</h1>
+                </div>
+                <div>
+                            <PlayAgain />
                 </div>
                 <div className='Player2'>
                     <h1>{this.props.name2}</h1>
                     <img src={`https://robohash.org/${this.props.id2}`} alt='Player2'></img>
-                    <h1 style={{marginBottom:'10px'}}>Wins : {this.props.wins2}</h1>
+                    <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins2}</h1>
                 </div>
             </div>
         );
