@@ -1,4 +1,4 @@
-import { WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
+import { UPDATE_WINS1, UPDATE_WINS2, WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
 
 const InitialState = {
     id:0,
@@ -25,6 +25,8 @@ export const Get_Player1_Details = (state=initialPlayer1, action={}) => {
     switch(action.type){
         case PLAYER1_DETAILS:
             return Object.assign({},state,{name:action.payload},{id:action.image_id});
+        case UPDATE_WINS1:
+            return Object.assign({},state,{wins:state.wins+1},);
         default:
             return state;
     }
@@ -40,6 +42,8 @@ export const Get_Player2_Details = (state=initialPlayer2, action={}) => {
     switch(action.type){
         case PLAYER2_DETAILS:
             return Object.assign({},state,{name:action.payload},{id:action.image_id});
+        case UPDATE_WINS2:
+            return Object.assign({},state,{wins:state.wins+1},);
         default:
             return state;
     }
