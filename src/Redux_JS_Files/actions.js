@@ -1,4 +1,4 @@
-import { Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
+import { WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
 
 export const Increment_ID = () => {
     return{
@@ -33,5 +33,13 @@ export const Turn = (text,successfail) => {
         type:PLAYER_TURN,
         payload:text,
         result:successfail,
+    }
+}
+
+export const SomeoneWon = (text,text2) => {
+    return{
+        type:WE_GOT_A_WINNER,
+        payload:text,
+        winner:text2,
     }
 }

@@ -7,3 +7,5 @@ export const PLAYER1_DETAILS = 'PLAYER1_DETAILS';
 export const PLAYER2_DETAILS = 'PLAYER2_DETAILS';
 
 export const PLAYER_TURN = 'PLAYER_TURN';
+
+export const WE_GOT_A_WINNER = 'WE_GOT_A_WINNER';
