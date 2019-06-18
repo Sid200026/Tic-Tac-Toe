@@ -40,9 +40,9 @@ class TicTacToeBox extends Component {
                     this.text = 'X';
                 else
                     this.text = 'O';
+                window.setTimeout(this.checkWinner, 1);
             }
         }
-        window.setTimeout(this.checkWinner, 1);
     }
 
     checkWinner = () => {

@@ -44,7 +44,7 @@ class Player_Registration extends Component{
     render(){
         return(
             <form>
-                <div className='Register'>
+                <div className='Register' >
                         <div style={{marginTop:8}}>
                             <h1 style={{textAlign:"center",fontSize:'22px',color:'green'}}>Player {this.props.playerNumber}</h1>
                             <h3 style={{textAlign:"center",fontSize:'22px'}}>Name</h3>
