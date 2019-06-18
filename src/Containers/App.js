@@ -5,7 +5,7 @@ import PlayerProfiles from '../Components/PlayerProfiles';
 import WindowToSmall from './WindowToSmall';
 import TicTacToeBox from '../Components/TicTacToeBox';
 import '../CSS/app.css';
-
+import { UpdateWinsOf1, UpdateWinsOf2 } from '../Redux_JS_Files/actions';
 const mapStateToProps = (state) => {
     return{
         alreadySelected:state.Move.position,
@@ -13,6 +13,13 @@ const mapStateToProps = (state) => {
         winnerName : state.Move.player,
         player1:state.Get_Player1_Details.name,
         player2:state.Get_Player2_Details.name,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        UpdateWinsOfPlayer1: () => dispatch(UpdateWinsOf1()),
+        UpdateWinsOfPlayer2: () => dispatch(UpdateWinsOf2()),
     }
 }
 
@@ -28,6 +35,7 @@ class app extends Component{
             hasWon:false,
             player:1,
         };
+        this.update=false;
     }
 
     register = () => {
@@ -49,6 +57,13 @@ class app extends Component{
         else{
             this.setState({windowIsSmall:false});
         }
+    }
+
+    updateWinner = () => {
+        if(this.state.player===2)
+            this.props.UpdateWinsOfPlayer1();
+        else   
+            this.props.UpdateWinsOfPlayer2();
     }
 
     playerHasWon = () => {
@@ -86,11 +101,15 @@ class app extends Component{
             ans = true;
         }
         if(ans===false)
-            if(this.state.gameArray.find((ele) => {return ele===0;}) === undefined && this.state.hasWon===false)
-                {
-                    this.setState({hasWon:'Tie'});
-                }
-        console.log(this.state.hasWon);
+        if(this.state.gameArray.find((ele) => {return ele===0;}) === undefined && this.state.hasWon===false)
+        {
+            this.setState({hasWon:'Tie'});
+        }
+        if(this.props.winnerStatus===true && this.update===false)
+        {
+            this.update=true;
+            this.updateWinner();
+        }
         return ans;
     }
 
@@ -119,7 +138,6 @@ class app extends Component{
         {
             this.setState({hasWon:'Tie'});
         }
-        console.log(this.state.hasWon);
     }
 
     render(){
@@ -159,7 +177,7 @@ class app extends Component{
                     {this.props.winnerStatus===true &&
                         <div>
                         {this.state.player===2 &&           //Instant Display
-                            <h1>{this.props.player1} has Won the Game</h1>
+                            <h1 >{this.props.player1} has Won the Game</h1>
                         }
                         {this.state.hasWon===true &&
                             <h1>{this.state.player} has Won the Game</h1> // Keeps it there
@@ -188,4 +206,4 @@ class app extends Component{
     }
 }
 
-export default connect(mapStateToProps,{})(app);
+export default connect(mapStateToProps,mapDispatchToProps)(app);
