@@ -9,6 +9,8 @@ import '../CSS/app.css';
 const mapStateToProps = (state) => {
     return{
         alreadySelected:state.Move.position,
+        winnerStatus : state.Move.won,
+        winnerName : state.Move.player,
     }
 }
 
@@ -34,6 +36,10 @@ class app extends Component{
     }
 
     screenWindowIsSmall = () => {
+        if(this.props.winnerStatus===true)
+        {
+            this.setState({hasWon:true,player:this.props.winnerName});
+        }
         if(window.innerWidth<640)
         {
             this.setState({windowIsSmall:true});
@@ -131,6 +137,9 @@ class app extends Component{
                             </div>
                         </div>
                     </div>
+                }
+                {this.state.hasWon===true &&
+                            <h1>{this.state.player} has Won the Game</h1>
                 }
                 <div className='link'>
                     <a href="https://github.com/Sid200026" className='linkText'target='_blank' rel="noopener noreferrer">
