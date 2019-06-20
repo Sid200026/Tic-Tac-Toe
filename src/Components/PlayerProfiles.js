@@ -19,22 +19,53 @@ class PlayerProfiles extends Component{
         this.props.resetPlayArea();
     }
 
+    SwapPlayersIfNecessary = () => {
+        if(this.props.gamesPlayed%2!==0)
+        {
+            return (
+                <div className='PlayerDetails'>
+                    <div className='Player1'>
+                        <h1>{this.props.name1}</h1>
+                        <img src={`https://robohash.org/${this.props.id1}`} alt='Player1'></img>
+                        <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins1}</h1>
+                    </div>
+                    <div>
+                                <PlayAgain resetPlayArea={this.PlayerAskedToReset}/>
+                    </div>
+                    <div className='Player2'>
+                        <h1>{this.props.name2}</h1>
+                        <img src={`https://robohash.org/${this.props.id2}`} alt='Player2'></img>
+                        <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins2}</h1>
+                    </div>
+            </div>
+            );
+        }
+        else
+        {
+            return (
+                <div className='PlayerDetails'>
+                    <div className='Player1'>
+                        <h1>{this.props.name2}</h1>
+                        <img src={`https://robohash.org/${this.props.id2}`} alt='Player2'></img>
+                        <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins2}</h1>
+                    </div>
+                    <div>
+                                <PlayAgain resetPlayArea={this.PlayerAskedToReset}/>
+                    </div>
+                    <div className='Player2'>
+                        <h1>{this.props.name1}</h1>
+                        <img src={`https://robohash.org/${this.props.id1}`} alt='Player1'></img>
+                        <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins1}</h1>
+                    </div>
+                </div>
+            );
+        }
+    }
+
     render(){
         return(
-            <div className='PlayerDetails'>
-                <div className='Player1'>
-                    <h1>{this.props.name1}</h1>
-                    <img src={`https://robohash.org/${this.props.id1}`} alt='Player1'></img>
-                    <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins1}</h1>
-                </div>
-                <div>
-                            <PlayAgain resetPlayArea={this.PlayerAskedToReset}/>
-                </div>
-                <div className='Player2'>
-                    <h1>{this.props.name2}</h1>
-                    <img src={`https://robohash.org/${this.props.id2}`} alt='Player2'></img>
-                    <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins2}</h1>
-                </div>
+            <div>
+            {this.SwapPlayersIfNecessary()}
             </div>
         );
     }

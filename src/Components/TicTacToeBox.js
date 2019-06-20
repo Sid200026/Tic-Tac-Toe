@@ -92,6 +92,7 @@ class TicTacToeBox extends Component {
             this.props.WeGotAWinner(this.props.win(),this.state.winnerName);
         }
     }
+
     render() {
         return (
             <div>

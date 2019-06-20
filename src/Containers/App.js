@@ -35,13 +35,14 @@ class app extends Component{
             gameArray:[0,0,0,0,0,0,0,0,0],
             hasWon:false,
             player:1,
+            gamesPlayed:1,
         };
         this.update=false;
         this.PlayerAskedToReset=this.PlayerAskedToReset.bind(this);
     }
 
     PlayerAskedToReset = () => {
-        this.setState ({playerNumber : 1, gameArray:[0,0,0,0,0,0,0,0,0], hasWon:false, player:1,});
+        this.setState ({playerNumber : 1, gameArray:[0,0,0,0,0,0,0,0,0], hasWon:false, player:1,gamesPlayed:this.state.gamesPlayed+1});
         this.props.PlayAgain();
         this.update=false;
     }
@@ -68,10 +69,20 @@ class app extends Component{
     }
 
     updateWinner = () => {
-        if(this.state.player===2)
-            this.props.UpdateWinsOfPlayer1();
-        else   
-            this.props.UpdateWinsOfPlayer2();
+        if(this.state.gamesPlayed%2!==0)
+        {
+            if(this.state.player===2)
+                this.props.UpdateWinsOfPlayer1();
+            else   
+                this.props.UpdateWinsOfPlayer2();
+        }
+        else
+        {
+            if(this.state.player===1)
+                this.props.UpdateWinsOfPlayer1();
+            else   
+                this.props.UpdateWinsOfPlayer2();
+        }
     }
 
     playerHasWon = () => {
@@ -148,6 +159,54 @@ class app extends Component{
         }
     }
 
+    DeclareWinner = () => {
+        if(this.state.gamesPlayed%2!==0)
+        {
+            return(
+                <div className='Winner'>
+                    {this.props.winnerStatus===true &&
+                        <div>
+                        {this.state.player===2 &&           //Instant Display
+                            <h1 >{this.props.player1} has Won the Game</h1>
+                        }
+                        {this.state.hasWon===true &&
+                            <h1>{this.state.player} has Won the Game</h1> // Keeps it there
+                        }
+                        {this.state.player===1 &&
+                            <h1>{this.props.player2} has Won the Game</h1> //Instant Display
+                        }
+                        </div>
+                    }
+                    {this.state.hasWon==='Tie' &&
+                        <h1>Tie Game</h1>
+                    }
+                </div>
+            );
+        }
+        else{
+            return(
+                <div className='Winner'>
+                        {this.props.winnerStatus===true &&
+                            <div>
+                            {this.state.player===2 &&           //Instant Display
+                                <h1 >{this.props.player2} has Won the Game</h1>
+                            }
+                            {this.state.hasWon===true &&
+                                <h1>{this.state.player} has Won the Game</h1> // Keeps it there
+                            }
+                            {this.state.player===1 &&
+                                <h1>{this.props.player1} has Won the Game</h1> //Instant Display
+                            }
+                            </div>
+                        }
+                        {this.state.hasWon==='Tie' &&
+                            <h1>Tie Game</h1>
+                        }
+                </div>
+            );
+        }
+    }
+
     render(){
         return(
             <div onMouseMove={this.screenWindowIsSmall}>
@@ -161,7 +220,8 @@ class app extends Component{
                 }
                 {this.state.PlayerRegistrationComplete === true &&
                     <div>
-                        <PlayerProfiles resetPlayArea={this.PlayerAskedToReset}/>
+                        <PlayerProfiles gamesPlayed={this.state.gamesPlayed} resetPlayArea={this.PlayerAskedToReset}/>
+                        <h1 style={{color:'chocolate',marginBottom:'5px'}}>Red Goes First</h1>
                         <div className='Tic-Tac-Toe' onClick={this.check}>
                             <div>
                                 <TicTacToeBox number={0} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
@@ -181,24 +241,7 @@ class app extends Component{
                         </div>
                     </div>
                 }
-                <div className='Winner'>
-                    {this.props.winnerStatus===true &&
-                        <div>
-                        {this.state.player===2 &&           //Instant Display
-                            <h1 >{this.props.player1} has Won the Game</h1>
-                        }
-                        {this.state.hasWon===true &&
-                            <h1>{this.state.player} has Won the Game</h1> // Keeps it there
-                        }
-                        {this.state.player===1 &&
-                            <h1>{this.props.player2} has Won the Game</h1>
-                        }
-                        </div>
-                    }
-                    {this.state.hasWon==='Tie' &&
-                        <h1>Tie Game</h1>
-                    }
-                </div>
+                {this.DeclareWinner()}
                 <div className='link'>
                     <a href="https://github.com/Sid200026" className='linkText'target='_blank' rel="noopener noreferrer">
                         <h4 >Made by Siddharth Singha Roy</h4>
