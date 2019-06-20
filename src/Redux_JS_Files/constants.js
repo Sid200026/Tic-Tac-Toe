@@ -13,3 +13,7 @@ export const WE_GOT_A_WINNER = 'WE_GOT_A_WINNER';
 export const UPDATE_WINS1 = 'UPDATE_WINS1';
 
 export const UPDATE_WINS2 = 'UPDATE_WINS2';
+
+export const RESET_EVERYTHING = 'RESET_EVERYTHING';
+
+export const CHANGE_RESET = 'CHANGE_RESET';

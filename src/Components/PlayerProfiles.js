@@ -14,6 +14,11 @@ const mapStateToProps = (state) => {
 }
 
 class PlayerProfiles extends Component{
+
+    PlayerAskedToReset = () => {
+        this.props.resetPlayArea();
+    }
+
     render(){
         return(
             <div className='PlayerDetails'>
@@ -23,7 +28,7 @@ class PlayerProfiles extends Component{
                     <h1 style={{marginTop:'10px'}}>Wins : {this.props.wins1}</h1>
                 </div>
                 <div>
-                            <PlayAgain />
+                            <PlayAgain resetPlayArea={this.PlayerAskedToReset}/>
                 </div>
                 <div className='Player2'>
                     <h1>{this.props.name2}</h1>

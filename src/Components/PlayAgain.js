@@ -5,7 +5,7 @@ class PlayAgain extends Component{
     render(){
         return(
             <div>
-                <button type='button'>Play Again</button>
+                <button type='button' onClick = {this.props.resetPlayArea}>Play Again</button>
             </div>
         )
     }

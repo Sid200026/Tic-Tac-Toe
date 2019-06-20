@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../CSS/TicTacToeBox.css';
-import { Turn, SomeoneWon } from '../Redux_JS_Files/actions';
+import { Turn, SomeoneWon, Change_Reset } from '../Redux_JS_Files/actions';
 
 const mapStateToProps = (state) => {
     return {
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
         result: state.Move.won,
         player1name: state.Get_Player1_Details.name,
         player2name: state.Get_Player2_Details.name,
+        resetPlayArea : state.Move.reset,
     }
 }
 
@@ -17,6 +18,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         PlayerSelected: (position, resultOfMatch) => dispatch(Turn(position, resultOfMatch)),
         WeGotAWinner: (successfail, winnerplayer) => dispatch(SomeoneWon(successfail,winnerplayer)),
+        ChangeValueOfReset : () => dispatch(Change_Reset()),
     }
 }
 
@@ -42,6 +44,38 @@ class TicTacToeBox extends Component {
                 window.setTimeout(this.checkWinner, 1);
             }
         }
+        if(this.props.resetPlayArea===true)
+            this.setState({text:''});
+    }
+
+    DisplayTicTacToeBox = () => {
+        if(this.props.resetPlayArea===true)
+        {
+            if(this.state.text !== '')
+                this.setState({text:''});
+            if(this.props.number === 8)
+                this.props.ChangeValueOfReset();
+            return (
+                <div>
+                    <h1 style={{fontSize:'70px',color:'blue'}}>{this.state.text}</h1>
+                </div>
+            );
+        }
+        else
+        {
+            if (this.state.text === 'X')
+                return( 
+                    <div>
+                        <h1 style={{fontSize:'70px',color:'red'}}>{this.state.text}</h1>
+                    </div>
+                );
+            else if(this.state.text === 'O')
+                return( 
+                    <div>
+                        <h1 style={{fontSize:'70px',color:'blue'}}>{this.state.text}</h1>
+                    </div>
+                );
+        }
     }
 
     checkWinner = () => {
@@ -63,14 +97,7 @@ class TicTacToeBox extends Component {
             <div>
                 {this.props.win()===false &&
                     <div className='box' onClick={this.SelectionDone}>
-                        <div>
-                            {this.state.text === 'X' &&
-                                <h1 style={{fontSize:'70px',color:'red'}}>{this.state.text}</h1>
-                            }
-                            {this.state.text === 'O' &&
-                                <h1 style={{fontSize:'70px',color:'blue'}}>{this.state.text}</h1>
-                            }
-                        </div>
+                        {this.DisplayTicTacToeBox()}
                     </div>
                 }
                 {this.props.win()===true &&

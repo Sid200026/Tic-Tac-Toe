@@ -5,7 +5,7 @@ import PlayerProfiles from '../Components/PlayerProfiles';
 import WindowToSmall from './WindowToSmall';
 import TicTacToeBox from '../Components/TicTacToeBox';
 import '../CSS/app.css';
-import { UpdateWinsOf1, UpdateWinsOf2 } from '../Redux_JS_Files/actions';
+import { UpdateWinsOf1, UpdateWinsOf2, Reset } from '../Redux_JS_Files/actions';
 const mapStateToProps = (state) => {
     return{
         alreadySelected:state.Move.position,
@@ -20,6 +20,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         UpdateWinsOfPlayer1: () => dispatch(UpdateWinsOf1()),
         UpdateWinsOfPlayer2: () => dispatch(UpdateWinsOf2()),
+        PlayAgain: () => dispatch(Reset()),
     }
 }
 
@@ -35,6 +36,13 @@ class app extends Component{
             hasWon:false,
             player:1,
         };
+        this.update=false;
+        this.PlayerAskedToReset=this.PlayerAskedToReset.bind(this);
+    }
+
+    PlayerAskedToReset = () => {
+        this.setState ({playerNumber : 1, gameArray:[0,0,0,0,0,0,0,0,0], hasWon:false, player:1,});
+        this.props.PlayAgain();
         this.update=false;
     }
 
@@ -145,7 +153,7 @@ class app extends Component{
             <div onMouseMove={this.screenWindowIsSmall}>
             {!this.state.windowIsSmall &&
             <div className='background'>
-                <h1 style={{fontSize:'45px',textAlign:'center',marginBottom:'15px',marginTop:'8px'}} className='header'>Tic-Tac-Toe</h1>
+                <h1 style={{fontSize:'45px',textAlign:'center',marginBottom:'15px',marginTop:'8px','cursor':'default'}} className='header'>Tic-Tac-Toe</h1>
                 {this.state.PlayerRegistrationComplete === false &&
                     <div className='register'>
                         <PlayerRegistration register={this.register} playerNumber={this.state.playerNumber}/>
@@ -153,7 +161,7 @@ class app extends Component{
                 }
                 {this.state.PlayerRegistrationComplete === true &&
                     <div>
-                        <PlayerProfiles />
+                        <PlayerProfiles resetPlayArea={this.PlayerAskedToReset}/>
                         <div className='Tic-Tac-Toe' onClick={this.check}>
                             <div>
                                 <TicTacToeBox number={0} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>

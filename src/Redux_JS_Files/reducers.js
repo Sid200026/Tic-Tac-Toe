@@ -1,4 +1,4 @@
-import { UPDATE_WINS1, UPDATE_WINS2, WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
+import { CHANGE_RESET,RESET_EVERYTHING,UPDATE_WINS1, UPDATE_WINS2, WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
 
 const InitialState = {
     id:0,
@@ -53,6 +53,7 @@ const initialMove = {
     won:false,
     player:1,
     position:'',
+    reset:false,
 }
 
 export const Move = (state=initialMove, action={}) => {
@@ -61,6 +62,10 @@ export const Move = (state=initialMove, action={}) => {
             return Object.assign({},state,{won:action.result},{player:(state.player%2)+1},{position:(state.position)+[action.payload]});
         case WE_GOT_A_WINNER:
             return Object.assign({},state,{won:action.payload},{player:action.winner});
+        case RESET_EVERYTHING:
+            return Object.assign({},state,initialMove,{reset:true});
+        case CHANGE_RESET:
+            return Object.assign({},state,initialMove,{reset:false});
         default:
             return state;
     }

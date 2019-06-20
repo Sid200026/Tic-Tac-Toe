@@ -1,4 +1,4 @@
-import { UPDATE_WINS1, UPDATE_WINS2, WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
+import { CHANGE_RESET, RESET_EVERYTHING, UPDATE_WINS1, UPDATE_WINS2, WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
 
 export const Increment_ID = () => {
     return{
@@ -53,5 +53,17 @@ export const UpdateWinsOf1 = () => {
 export const UpdateWinsOf2 = () => {
     return{
         type:UPDATE_WINS2,
+    }
+}
+
+export const Reset = () => {
+    return {
+        type:RESET_EVERYTHING,
+    }
+}
+
+export const Change_Reset = () => {
+    return {
+        type:CHANGE_RESET,
     }
 }

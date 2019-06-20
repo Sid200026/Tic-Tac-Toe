@@ -57,7 +57,7 @@ class Player_Registration extends Component{
                         <div style={{marginTop:8}}>
                             <h1 style={{textAlign:"center",fontSize:'22px',color:'green'}}>Player {this.props.playerNumber}</h1>
                             <h3 style={{textAlign:"center",fontSize:'22px'}}>Name</h3>
-                            <input type='text' placeholder='Enter your name....' className='NameInput' onInput={this.updateName}></input>
+                            <input type='text' title='10 characters at max' placeholder='Enter your name....' className='NameInput' onInput={this.updateName}></input>
                         </div>
                         <img src = {`https://robohash.org/${this.props.id}`} alt = 'Oops...' className = 'RobotImage'></img>
                         <div>
