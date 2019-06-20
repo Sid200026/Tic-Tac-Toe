@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import GetUserInput from './GetUserInput';
 import '../CSS/TicTacToeBox.css';
 import { Turn, SomeoneWon } from '../Redux_JS_Files/actions';
 
@@ -26,10 +25,10 @@ class TicTacToeBox extends Component {
 
     constructor() {
         super();
-        this.text = '';
         this.state = {
             winnerCheck: false,
             winnerName: '',
+            text : '',
         }
     }
 
@@ -37,9 +36,9 @@ class TicTacToeBox extends Component {
         if (this.props.win() === false) {
             if (this.props.pos.includes(this.props.number) === false) {
                 if (this.props.player === 1)
-                    this.text = 'X';
+                    this.setState({text:'X'});
                 else
-                    this.text = 'O';
+                    this.setState({text:'O'});
                 window.setTimeout(this.checkWinner, 1);
             }
         }
@@ -64,12 +63,26 @@ class TicTacToeBox extends Component {
             <div>
                 {this.props.win()===false &&
                     <div className='box' onClick={this.SelectionDone}>
-                        <GetUserInput text={this.text} />
+                        <div>
+                            {this.state.text === 'X' &&
+                                <h1 style={{fontSize:'70px',color:'red'}}>{this.state.text}</h1>
+                            }
+                            {this.state.text === 'O' &&
+                                <h1 style={{fontSize:'70px',color:'blue'}}>{this.state.text}</h1>
+                            }
+                        </div>
                     </div>
                 }
                 {this.props.win()===true &&
                     <div className='box'>
-                        <GetUserInput text={this.text} />
+                        <div>
+                            {this.state.text === 'X' &&
+                                <h1 style={{fontSize:'70px',color:'red'}}>{this.state.text}</h1>
+                            }
+                            {this.state.text === 'O' &&
+                                <h1 style={{fontSize:'70px',color:'blue'}}>{this.state.text}</h1>
+                            }
+                        </div>  
                     </div>
                 }
             </div>

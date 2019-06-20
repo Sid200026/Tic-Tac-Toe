@@ -31,6 +31,15 @@ class Player_Registration extends Component{
     }
 
     registerPlayer = () => {
+        if(this.Name.length>10)
+        {
+            let tempstring = '';
+            for(let i=0;i<10;i++)
+            {
+                tempstring = tempstring +this.Name[i];
+            }
+            this.Name=tempstring;
+        }
         if(this.props.playerNumber === 1)
         {
             this.props.RegisterPlayer1(this.Name,this.props.id);
