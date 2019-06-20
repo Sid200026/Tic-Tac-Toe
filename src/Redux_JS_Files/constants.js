@@ -17,3 +17,7 @@ export const UPDATE_WINS2 = 'UPDATE_WINS2';
 export const RESET_EVERYTHING = 'RESET_EVERYTHING';
 
 export const CHANGE_RESET = 'CHANGE_RESET';
+
+export const WINNING_COMBINATION = 'WINNING_COMBINATION';
+
+export const NO_WINNER = 'NO_WINNER';

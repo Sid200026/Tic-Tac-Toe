@@ -5,7 +5,7 @@ import PlayerProfiles from '../Components/PlayerProfiles';
 import WindowToSmall from './WindowToSmall';
 import TicTacToeBox from '../Components/TicTacToeBox';
 import '../CSS/app.css';
-import { UpdateWinsOf1, UpdateWinsOf2, Reset } from '../Redux_JS_Files/actions';
+import { RestoreNoWinner, UpdateWinsOf1, UpdateWinsOf2, Reset, Get_Winning_Combination } from '../Redux_JS_Files/actions';
 const mapStateToProps = (state) => {
     return{
         alreadySelected:state.Move.position,
@@ -21,6 +21,8 @@ const mapDispatchToProps = (dispatch) => {
         UpdateWinsOfPlayer1: () => dispatch(UpdateWinsOf1()),
         UpdateWinsOfPlayer2: () => dispatch(UpdateWinsOf2()),
         PlayAgain: () => dispatch(Reset()),
+        SomeoneWon : (text) => dispatch(Get_Winning_Combination(text)),
+        ResetWinGlow : () => dispatch(RestoreNoWinner())
     }
 }
 
@@ -36,19 +38,21 @@ class app extends Component{
             hasWon:false,
             player:1,
             gamesPlayed:1,
-        };
+            };
         this.update=false;
+        this.dontchange=false;
         this.PlayerAskedToReset=this.PlayerAskedToReset.bind(this);
     }
 
     PlayerAskedToReset = () => {
         this.setState ({playerNumber : 1, gameArray:[0,0,0,0,0,0,0,0,0], hasWon:false, player:1,gamesPlayed:this.state.gamesPlayed+1});
+        this.props.ResetWinGlow();
         this.props.PlayAgain();
         this.update=false;
     }
-
+ 
     register = () => {
-        if(this.state.playerNumber === 1)
+        if(this.state.playerNumber ===1)
             this.setState({playerNumber:this.state.playerNumber+1});
         else   
             this.setState({PlayerRegistrationComplete:true});
@@ -57,7 +61,14 @@ class app extends Component{
     screenWindowIsSmall = () => {
         if(this.props.winnerStatus===true)
         {
-            this.setState({hasWon:true,player:this.props.winnerName});
+            if(this.state.gamesPlayed%2!==0)
+                this.setState({hasWon:true,player:this.props.winnerName});
+            else{
+                if(this.props.winnerName===this.props.player1)
+                    this.setState({hasWon:true,player:this.props.player2});
+                else
+                    this.setState({hasWon:true,player:this.props.player1});
+            }
         }
         if(window.innerWidth<640)
         {
@@ -79,10 +90,18 @@ class app extends Component{
         else
         {
             if(this.state.player===1)
+            {
                 this.props.UpdateWinsOfPlayer1();
+            }
             else   
+            {
                 this.props.UpdateWinsOfPlayer2();
+            }
         }
+    }
+
+    GetWinningCombination = (combination) => {
+        this.props.SomeoneWon(combination);
     }
 
     playerHasWon = () => {
@@ -90,34 +109,50 @@ class app extends Component{
         if(this.state.gameArray[0] !==0 && this.state.gameArray[0]===this.state.gameArray[1] && this.state.gameArray[0]===this.state.gameArray[2])
         {
             ans = true;
+            if(ans)
+                this.GetWinningCombination('012');
         }
         else if(this.state.gameArray[3] !==0 && this.state.gameArray[3]===this.state.gameArray[4] && this.state.gameArray[3]===this.state.gameArray[5])
         {
             ans = true;
+            if(ans)
+                this.GetWinningCombination('345');
         }
         else if(this.state.gameArray[6] !==0 && this.state.gameArray[6]===this.state.gameArray[7] && this.state.gameArray[6]===this.state.gameArray[8])
         {
             ans = true;
+            if(ans)
+                this.GetWinningCombination('678');
         }
         else if(this.state.gameArray[0] !==0 && this.state.gameArray[0]===this.state.gameArray[3] && this.state.gameArray[0]===this.state.gameArray[6])
         {
             ans = true;
+            if(ans)
+                this.GetWinningCombination('036');
         }
         else if(this.state.gameArray[1] !==0 && this.state.gameArray[1]===this.state.gameArray[4] && this.state.gameArray[1]===this.state.gameArray[7])
         {
             ans = true;
+            if(ans)
+                this.GetWinningCombination('147');
         }
         else if(this.state.gameArray[2] !==0 && this.state.gameArray[2]===this.state.gameArray[5] && this.state.gameArray[2]===this.state.gameArray[8])
         {
             ans = true;
+            if(ans)
+                this.GetWinningCombination('258');
         }
         else if(this.state.gameArray[0] !==0 && this.state.gameArray[0]===this.state.gameArray[4] && this.state.gameArray[0]===this.state.gameArray[8])
         {
             ans = true;
+            if(ans)
+                this.GetWinningCombination('048');
         }
         else if(this.state.gameArray[2] !==0 && this.state.gameArray[2]===this.state.gameArray[4] && this.state.gameArray[2]===this.state.gameArray[6])
         {
             ans = true;
+            if(ans)
+                this.GetWinningCombination('246');
         }
         if(ans===false)
         if(this.state.gameArray.find((ele) => {return ele===0;}) === undefined && this.state.hasWon===false)
@@ -207,6 +242,14 @@ class app extends Component{
         }
     }
 
+    GetCurrentPlayer = () => {
+        if(this.props.winnerStatus===false && this.state.hasWon!=='Tie')
+        if(this.state.gamesPlayed%2!==0)
+            return <h1 style={{color:'chocolate',marginBottom:'10px'}}>{this.props.player1} Goes First</h1>
+        else
+            return <h1 style={{color:'chocolate',marginBottom:'10px'}}>{this.props.player2} Goes First</h1>
+    }
+
     render(){
         return(
             <div onMouseMove={this.screenWindowIsSmall}>
@@ -221,7 +264,7 @@ class app extends Component{
                 {this.state.PlayerRegistrationComplete === true &&
                     <div>
                         <PlayerProfiles gamesPlayed={this.state.gamesPlayed} resetPlayArea={this.PlayerAskedToReset}/>
-                        <h1 style={{color:'chocolate',marginBottom:'5px'}}>Red Goes First</h1>
+                        {this.GetCurrentPlayer()}
                         <div className='Tic-Tac-Toe' onClick={this.check}>
                             <div>
                                 <TicTacToeBox number={0} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>

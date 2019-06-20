@@ -1,4 +1,4 @@
-import { CHANGE_RESET,RESET_EVERYTHING,UPDATE_WINS1, UPDATE_WINS2, WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
+import { NO_WINNER, WINNING_COMBINATION, CHANGE_RESET,RESET_EVERYTHING,UPDATE_WINS1, UPDATE_WINS2, WE_GOT_A_WINNER, Robot_ID_OF_PLAYER_INC, Robot_ID_OF_PLAYER_DEC, PLAYER1_DETAILS, PLAYER2_DETAILS, PLAYER_TURN } from './constants';
 
 const InitialState = {
     id:0,
@@ -66,6 +66,21 @@ export const Move = (state=initialMove, action={}) => {
             return Object.assign({},state,initialMove,{reset:true});
         case CHANGE_RESET:
             return Object.assign({},state,initialMove,{reset:false});
+        default:
+            return state;
+    }
+}
+
+const NoWinner = {
+    winningCombination : '',
+}
+
+export const WinningCombo = (state=NoWinner,action={}) => {
+    switch(action.type){
+        case WINNING_COMBINATION:
+            return Object.assign({},state,{winningCombination:action.payload});
+        case NO_WINNER:
+            return Object.assign({},NoWinner);
         default:
             return state;
     }

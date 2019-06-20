@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
         player1name: state.Get_Player1_Details.name,
         player2name: state.Get_Player2_Details.name,
         resetPlayArea : state.Move.reset,
+        combo : state.WinningCombo.winningCombination,
     }
 }
 
@@ -93,6 +94,35 @@ class TicTacToeBox extends Component {
         }
     }
 
+    WinningGlowCombo = () => {
+        if(this.props.combo.includes(this.props.number)===true)
+        {
+            return(
+                <div className='box'>
+                    {this.state.text === 'X' &&
+                        <h1 style ={{fontSize:'70px',color:'black',}}>{this.state.text}</h1>
+                    }
+                    {this.state.text === 'O' &&
+                        <h1 style={{fontSize:'70px',color:'black',}}>{this.state.text}</h1>
+                    }
+                </div>  
+            );
+        }
+        else
+        {
+            return(
+                <div className='box'>
+                    {this.state.text === 'X' &&
+                        <h1 style={{fontSize:'70px',color:'red'}}>{this.state.text}</h1>
+                    }
+                    {this.state.text === 'O' &&
+                        <h1 style={{fontSize:'70px',color:'blue'}}>{this.state.text}</h1>
+                    }
+                </div>  
+            );
+        }
+    }
+
     render() {
         return (
             <div>
@@ -102,16 +132,9 @@ class TicTacToeBox extends Component {
                     </div>
                 }
                 {this.props.win()===true &&
-                    <div className='box'>
-                        <div>
-                            {this.state.text === 'X' &&
-                                <h1 style={{fontSize:'70px',color:'red'}}>{this.state.text}</h1>
-                            }
-                            {this.state.text === 'O' &&
-                                <h1 style={{fontSize:'70px',color:'blue'}}>{this.state.text}</h1>
-                            }
-                        </div>  
-                    </div>
+                <div>
+                    {this.WinningGlowCombo()}
+                </div>
                 }
             </div>
         );

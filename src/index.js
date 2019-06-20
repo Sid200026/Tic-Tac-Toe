@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import {createLogger} from 'redux-logger';
+//import {createLogger} from 'redux-logger';
 import { Provider } from 'react-redux';
-import { createStore,combineReducers, applyMiddleware } from 'redux';
+import { createStore,combineReducers, /*applyMiddleware*/ } from 'redux';
 import App from './Containers/App';
 import WindowToSmall from './Containers/WindowToSmall';
-import { Change_Id_Of_Robot, Get_Player2_Details, Get_Player1_Details, Move } from './Redux_JS_Files/reducers';
+import { Change_Id_Of_Robot, Get_Player2_Details, Get_Player1_Details, Move, WinningCombo } from './Redux_JS_Files/reducers';
 
-const rootReducer = combineReducers({ Change_Id_Of_Robot, Get_Player2_Details, Get_Player1_Details, Move });
+const rootReducer = combineReducers({ WinningCombo, Change_Id_Of_Robot, Get_Player2_Details, Get_Player1_Details, Move });
 
-const logger = createLogger();
+//const logger = createLogger();
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, /*applyMiddleware(logger)*/);
 
 const WindowSmall = window.innerWidth<640?<WindowToSmall />:<App />;
 
