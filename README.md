@@ -14,11 +14,10 @@ sudo apt update
 sudo apt install nodejs
 ```
 
-**Now we need to install npm and then initialise it in a folder**
+**Now we need to install npm**
 
 ```
 sudo apt install npm
-npm init
 ```
 If your machine has administrator priviledges then we do not need to use sudo for the following commands
 
