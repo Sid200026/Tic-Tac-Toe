@@ -18,6 +18,9 @@ form{
     margin-top:10px;
     color:chocolate;
 }
+.SomeoneWon{
+    margin-bottom: 50px;
+}
 .link{
     position: absolute;
     margin-top:8px; 
@@ -42,4 +45,5 @@ h4:hover{
 .Tic-Tac-Toe{
     display:flex;
     justify-content: center;
+    margin-bottom:10px;
 }

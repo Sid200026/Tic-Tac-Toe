@@ -70,7 +70,7 @@ class app extends Component{
                     this.setState({hasWon:true,player:this.props.player1});
             }
         }
-        if(window.innerWidth<640)
+        if(window.innerWidth<200)
         {
             this.setState({windowIsSmall:true});
         }
@@ -276,7 +276,7 @@ class app extends Component{
                                 <TicTacToeBox number={4} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
                                 <TicTacToeBox number={7} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
                             </div>
-                            <div>
+                            <div className='bottomrow'>
                                 <TicTacToeBox number={2} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
                                 <TicTacToeBox number={5} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
                                 <TicTacToeBox number={8} getPos={this.getPositions} win={this.playerHasWon} playerNum = {this.state.player}/>
@@ -284,7 +284,9 @@ class app extends Component{
                         </div>
                     </div>
                 }
-                {this.DeclareWinner()}
+                <div className='SomeoneWon'>
+                    {this.DeclareWinner()}
+                </div>
                 <div className='link'>
                     <a href="https://github.com/Sid200026" className='linkText'target='_blank' rel="noopener noreferrer">
                         <h4 >Made by Siddharth Singha Roy</h4>

@@ -14,7 +14,7 @@ const rootReducer = combineReducers({ WinningCombo, Change_Id_Of_Robot, Get_Play
 
 const store = createStore(rootReducer, /*applyMiddleware(logger)*/);
 
-const WindowSmall = window.innerWidth<640?<WindowToSmall />:<App />;
+const WindowSmall = window.innerWidth<200?<WindowToSmall />:<App />;
 
 ReactDOM.render(<Provider store={store}>
                     <div style={{height:'100%',width:'100%'}} className='hi'>
